@@ -1,4 +1,4 @@
-require("dotenv-safe").config();
+// require("dotenv-safe").config();
 import "@babel/polyfill";
 import mongoose from 'mongoose'
 // project files
