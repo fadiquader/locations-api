@@ -1,2 +1,1 @@
-build:yarn build
-serve: yarn serve
+web: yarn serve

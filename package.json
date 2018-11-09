@@ -14,7 +14,8 @@
   "scripts": {
     "start": "nodemon --exec babel-node src/index.js",
     "build": "rimraf ./dist && babel src --out-dir dist",
-    "serve": "node dist/index.js"
+    "serve": "node dist/index.js",
+    "heroku-postbuild": "npm run build"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
