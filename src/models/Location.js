@@ -1,0 +1,26 @@
+import mongoose from 'mongoose';
+
+const locationSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  description: String,
+  picture: String,
+  location: {
+    type: {
+      type: String, // Don't do `{ location: { type: String } }`
+      enum: ['Point'], // 'location.type' must be 'Point'
+      required: true
+    },
+    coordinates: {
+      type: [Number],
+      required: true
+    }
+  },
+  _creator: {
+    type: mongoose.Types.ObjectId
+  }
+});
+
+export const Location = mongoose.model('Location', locationSchema);
