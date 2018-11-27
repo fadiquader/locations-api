@@ -29,9 +29,9 @@ app.use('/images', express.static(path.join(process.env.PWD, 'images'), { maxAge
 app.use(cors('*'));
 app.use(decodeJwt);
 app.use('/api', routesApp);
-app.get('/*', (req, res) => {
+app.get('/', (req, res) => {
     res.send('api works fine')
-})
+});
 console.log('--------------------------');
 console.log('===> 😊  Starting Server . . .');
 console.log(`===>  Environment:  ${ENV}`);
