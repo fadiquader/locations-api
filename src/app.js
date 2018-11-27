@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(bodyParser.json({ limit: '50mb', extended: true }));
 app.use('/images', express.static('images'));
 process.env.PWD = process.cwd();
-// console.log('process.env.PWD  ', process.env.PWD )
+console.log('process.env.PWD  ', process.env.PWD);
 // console.log('process.env.PWD١  ', path.join(__dirname, '../images') )
 app.use('/images', express.static(path.join(process.env.PWD, 'images'), { maxAge: 86400000 }));
 

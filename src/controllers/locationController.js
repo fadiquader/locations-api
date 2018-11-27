@@ -29,13 +29,14 @@ locationController.create = async (req, res) => {
   }
   console.log(data.name)
   if(data.picture) {
-    if (!fs.existsSync('images')){
-      fs.mkdirSync('images');
+    const dir = `${process.env.PWD}/images`;
+    if (!fs.existsSync(dir)){
+      fs.mkdirSync(dir);
     }
     try {
       const base64Data = data.picture.replace(/^data:image\/jpeg;base64,/, '');
       const fileName = `${uuidv4()}.jpeg`;
-      fs.writeFileSync(`images/${fileName}`, base64Data, 'base64');
+      fs.writeFileSync(`${dir}/${fileName}`, base64Data, 'base64');
       data.picture = fileName;
     } catch (e) {
       return res.status(422).json({
