@@ -23,4 +23,11 @@ const locationSchema = new mongoose.Schema({
   }
 });
 
+locationSchema.methods.toJSON = function(host) {
+  const obj = this.toObject();
+  if(obj.picture) {
+    obj.picture = `${host}/images/${obj.picture}`;
+  }
+  return obj;
+}
 export const Location = mongoose.model('Location', locationSchema);

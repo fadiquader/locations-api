@@ -15,8 +15,9 @@ const port = process.env.PORT || 4000;
 
 app.set('port', port);
 app.enable('trust proxy');
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(bodyParser.json({ limit: '50mb', extended: true }));
+app.use('/images', express.static('images'));
 app.use(cors('*'));
 app.use(decodeJwt);
 app.use('/api', routesApp);

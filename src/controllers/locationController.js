@@ -1,3 +1,6 @@
+import * as fs from 'fs';
+import uuidv4 from 'uuid/v4'
+// ----
 import * as db from '../models';
 import { locationSchema } from '../validations/locationSchema';
 import { formatYupError} from '../utils/formatYupError';
@@ -6,8 +9,12 @@ export const locationController = {};
 
 locationController.create = async (req, res) => {
   const data = req.body;
-  const userId = req.user._id;
+  const userId = req.user ? req.user._id : null;
   try {
+    data.location = {
+      type: 'Point',
+      coordinates: [data.location.latitude, data.location.longitude],
+    };
     await locationSchema.validate(data, { abortEarly: false });
   }
   catch (err) {
@@ -20,6 +27,23 @@ locationController.create = async (req, res) => {
   if(userId) {
     data.userId = userId;
   }
+  console.log(data.name)
+  if(data.picture) {
+    if (!fs.existsSync('images')){
+      fs.mkdirSync('images');
+    }
+    try {
+      const base64Data = data.picture.replace(/^data:image\/jpeg;base64,/, '');
+      const fileName = `${uuidv4()}.jpeg`;
+      fs.writeFileSync(`images/${fileName}`, base64Data, 'base64');
+      data.picture = fileName;
+    } catch (e) {
+      return res.status(422).json({
+        success: false,
+        errors,
+      })
+    }
+  }
   const location = new db.Location(data);
   await location.save();
   res.status(200).json({
@@ -29,9 +53,10 @@ locationController.create = async (req, res) => {
 };
 
 locationController.findAll = async (req, res) => {
-  const locations = await db.Location.find();
+  const host = req.protocol + "://" + req.get('host') || '';
+  const locations = (await db.Location.find()).map(loc => loc.toJSON(host));
   res.status(200).json({
-    data: locations,
+    locations,
     success: true
   })
 };
