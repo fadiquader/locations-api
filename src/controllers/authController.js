@@ -46,3 +46,9 @@ authController.signin = async (req, res) => {
     });
   });
 };
+
+authController.me = async (req, res) => {
+  res.status(200).json({
+    data: req.user,
+  })
+}
