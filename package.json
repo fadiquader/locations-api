@@ -14,7 +14,7 @@
   "scripts": {
     "start": "nodemon --exec babel-node src/index.js",
     "build": "rimraf ./dist && babel src --out-dir dist",
-    "serve": "pm2 stop locations && node dist/index.js",
+    "serve": "pm2 stop locations && pm2 start dist/index.js",
     "heroku-postbuild": "npm run build"
   },
   "devDependencies": {
