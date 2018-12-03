@@ -66,7 +66,7 @@ locationController.getById = async (req, res) => {
   const { id } = req.params;
   const location = await db.Location.findById(id);
   res.status(200).json({
-    data: location,
+    data: location.toJSON(),
     success: !!location
   })
 };
