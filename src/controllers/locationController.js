@@ -27,7 +27,7 @@ locationController.create = async (req, res) => {
   if(userId) {
     data.userId = userId;
   }
-  console.log(data.name)
+  // console.log(data.name)
   if(data.picture) {
     const dir = `${process.env.PWD}/images`;
     if (!fs.existsSync(dir)){
@@ -64,9 +64,10 @@ locationController.findAll = async (req, res) => {
 
 locationController.getById = async (req, res) => {
   const { id } = req.params;
+  const host = req.protocol + "://" + req.get('host') || '';
   const location = await db.Location.findById(id);
   res.status(200).json({
-    data: location.toJSON(),
+    data: location.toJSON(host),
     success: !!location
   })
 };
