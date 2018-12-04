@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import uuidv4 from 'uuid/v4'
+import path from 'path';
 // ----
 import * as db from '../models';
 import { locationSchema } from '../validations/locationSchema';
@@ -29,7 +30,8 @@ locationController.create = async (req, res) => {
   }
   // console.log(data.name)
   if(data.picture) {
-    const dir = `/images`;
+
+    const dir = path.join(__dirname, '../images');
     if (!fs.existsSync(dir)){
       fs.mkdirSync(dir);
     }
