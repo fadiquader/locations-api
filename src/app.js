@@ -18,8 +18,8 @@ app.set('port', port);
 app.enable('trust proxy');
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(bodyParser.json({ limit: '50mb', extended: true }));
-app.use('/images', express.static('images'), { maxAge: 86400000 });
-// app.use('/images', express.static(path.join(__dirname, '../images'), { maxAge: 86400000 }));
+// app.use('/images', express.static('images'), { maxAge: 86400000 });
+app.use('/images', express.static(path.join(__dirname, '../images'), { maxAge: 86400000 }));
 
 app.use(cors('*'));
 app.use(decodeJwt);
