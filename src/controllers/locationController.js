@@ -29,7 +29,7 @@ locationController.create = async (req, res) => {
   }
   // console.log(data.name)
   if(data.picture) {
-    const dir = `${process.env.PWD}/images`;
+    const dir = `/images`;
     if (!fs.existsSync(dir)){
       fs.mkdirSync(dir);
     }
