@@ -31,7 +31,7 @@ locationController.create = async (req, res) => {
   // console.log(data.name)
   if(data.picture) {
 
-    const dir = path.join(__dirname, '../images');
+    const dir = 'images';
     if (!fs.existsSync(dir)){
       fs.mkdirSync(dir);
     }
